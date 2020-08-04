@@ -1,0 +1,8 @@
+# syncthing ignore
+.stignore
+# symbol link
+expm
+expmcc
+expmxx
+# binary
+gitui
