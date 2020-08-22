@@ -1,4 +1,7 @@
 #!/bin/bash
+# This script does not use the fzf to search,
+# instead it use `rg` (case-ignored mode) to search,
+# fzf is just a selector or a UI infrastructure to call `rg`
 # From https://github.com/junegunn/fzf/wiki/Examples#searching-file-contents
 ##
 # Interactive search.
