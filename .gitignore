@@ -1,3 +1,5 @@
+# vim temp
+*.swp
 # syncthing ignore
 .stignore
 # symbol link
