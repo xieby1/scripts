@@ -4,6 +4,7 @@
 # This script is meant to find and list all todo/open entries in my notes
 # as much as possible.
 
+source ~/Documents/shell-scripts/_common.sh
 source ~/Documents/shell-scripts/_grep_common.sh
 
 TODO_OPTION=(-i -E -w)
@@ -11,20 +12,20 @@ TODO_OPTION=(-i -E -w)
 PATTERN="(todo)|(\[open\])"
 LOCATION=~/Documents/Notes/xiebenyi
 cd "${LOCATION}"
-figlet Notes
+head_line Notes
 grep "${PATTERN}" . -r \
     ${EXTRA_OPTION[@]} \
     ${TODO_OPTION[@]} \
     ${EXCLUDE_BASIC[@]} \
     ${EXCLUDE_CODE[@]}
 
-figlet todo.txt
+head_line todo.txt
 cat "${LOCATION}/todo.txt"
 
 PATTERN="W.*"
 LOCATION=~/Documents/Essays
 cd "${LOCATION}"
-figlet Essays
+head_line Essays
 find -iname "${PATTERN}"
 
 
