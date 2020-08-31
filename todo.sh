@@ -8,6 +8,7 @@ source ~/Documents/shell-scripts/_common.sh
 source ~/Documents/shell-scripts/_grep_common.sh
 
 TODO_OPTION=(-i -E -w)
+BAT_STYLE=--style="grid,numbers"
 
 PATTERN="(todo)|(\[open\])"
 LOCATION=~/Documents/Notes/xiebenyi
@@ -17,15 +18,17 @@ grep "${PATTERN}" . -r \
     ${EXTRA_OPTION[@]} \
     ${TODO_OPTION[@]} \
     ${EXCLUDE_BASIC[@]} \
-    ${EXCLUDE_CODE[@]}
+    ${EXCLUDE_CODE[@]} \
+    | bat -l md "${BAT_STYLE}"
 
 head_line todo.txt
-cat "${LOCATION}/todo.txt"
+bat "${BAT_STYLE}" "${LOCATION}/todo.txt"
 
 PATTERN="W.*"
 LOCATION=~/Documents/Essays
 cd "${LOCATION}"
 head_line Essays
-find -iname "${PATTERN}"
+find -iname "${PATTERN}" \
+    | bat "${BAT_STYLE}"
 
 
