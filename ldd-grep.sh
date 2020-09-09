@@ -9,11 +9,25 @@ while [[ ${OPTIND} -le $# ]]; do
     getopts "ho:" opt
     case "${opt}" in
         h)
-            echo "Usage: ${0##*/} [-o dir] [ file | directory ]"
+            echo "Usage: ${0##*/} [-o DEST] [ FILE | DIR ]"
             echo
-            echo "  List the lib dependencies of file or files under directory"
-            echo "  If file or directory is not specified, '.' will be used."
+            echo "  List the lib dependencies of FILE or files under DIR"
+            echo "  If FILE or DIR is not specified, '.' will be used"
+            echo "  If -o DEST is specifed, dependencies will be copied to DEST"
             exit 0
+            ;;
+        o)
+            if [[ -e ${OPTARG} ]]; then
+                if [[ -d ${OPTARG} ]]; then
+                    DEST_DIR=${OPTARG}
+                else
+                    echo "-o ${OPTARG} should be a directory"
+                    exit 1
+                fi
+            else
+                echo "${OPTARG} not exists"
+                exit 1
+            fi
             ;;
         ?)
             TARGET=${!OPTIND}
@@ -34,10 +48,24 @@ ldd_real_path()
         sed 's/\s//'
 }
 
+get_dependencies()
+{
+    if [[ -z ${DEST_DIR} ]]; then
+        ldd_real_path $1
+    else
+        ldd_real_path $1 | while read DEP; do
+            LIB_NEW_PATH="${DEST_DIR}${DEP#/}"
+            LIB_NEW_DIR="${LIB_NEW_PATH%/*}/"
+            mkdir -p ${LIB_NEW_DIR}
+            cp -n -v ${DEP} ${LIB_NEW_DIR}
+        done
+    fi
+}
+
 if [[ -d ${TARGET} ]]; then
-    for FILE in $(find .); do
-        ldd_real_path ${FILE}
+    for FILE in $(find . -type f); do
+        get_dependencies ${FILE}
     done
 elif [[ -f ${TARGET} ]]; then
-    ldd_real_path ${TARGET}
+    get_dependencies ${TARGET}
 fi
