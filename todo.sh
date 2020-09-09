@@ -10,37 +10,43 @@ source ~/Documents/shell-scripts/_grep_common.sh
 #### Local Variables ####
 TODO_OPTION=(-i -E -w)
 BAT_STYLE=--style="grid,numbers"
-EXCLUDE_TODO=(
-    --exclude="*todo.txt"
-    --exclude="*done.txt"
-    --exclude-dir="CrossPlatformTools"
-)
 GREP_OPTIONS=(
     . -r
     ${EXTRA_OPTION[@]}
     ${TODO_OPTION[@]}
     ${EXCLUDE_BASIC[@]}
     ${EXCLUDE_CODE[@]}
-    ${EXCLUDE_TODO[@]}
 )
 #### End of Local Variables ####
 
 cd ~/Documents/Notes/xiebenyi
 head_line Notes
+EXCLUDE_TODO=(
+    --exclude="*todo.txt"
+    --exclude="*done.txt"
+    --exclude-dir="CrossPlatformTools"
+)
 grep "todo" ${GREP_OPTIONS[@]} \
-    | bat "${BAT_STYLE}"
+    ${EXCLUDE_TODO[@]} \
+    | bat ${BAT_STYLE}
 grep "\[open\]" ${GREP_OPTIONS[@]} \
-    | bat "${BAT_STYLE}"
-
+    ${EXCLUDE_TODO[@]} \
+    | bat ${BAT_STYLE}
 
 head_line todo.txt
 bat "${BAT_STYLE}" "./todo.txt"
 
-PATTERN="W.*"
-LOCATION=~/Documents/Essays
+cd ~/Documents/Essays
 cd "${LOCATION}"
 head_line Essays
-find -iname "${PATTERN}" \
-    | bat "${BAT_STYLE}"
+find -iname "W.*" \
+    | bat ${BAT_STYLE}
 grep "todo" ${GREP_OPTIONS[@]} \
-    | bat "${BAT_STYLE}"
+    | bat ${BAT_STYLE}
+
+cd ~/Documents/Hobbies
+head_line Hobbies
+grep "todo" ${GREP_OPTIONS[@]} \
+    | bat ${BAT_STYLE}
+find -iname "W.*" \
+    | bat ${BAT_STYLE}
