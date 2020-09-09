@@ -1,14 +1,29 @@
 #!/bin/bash
 # input: the file (or diretory) to be examed,
 # output: its (or files under the directory, recursively) depending lib
-for opt in $@; do
-    if [[ ${opt} == "-h" || ${opt} == "--help" ]]; then
-        echo "Usage: ${0##*/} [ file | directory ]"
-        echo
-        echo "  List the lib dependencies of file or files under directory"
-        echo "  If file or directory is not specified, '.' will be used."
-        exit 0
-    fi
+
+# default value
+TARGET=.
+
+while [[ ${OPTIND} -le $# ]]; do
+    getopts "ho:" opt
+    case "${opt}" in
+        h)
+            echo "Usage: ${0##*/} [-o dir] [ file | directory ]"
+            echo
+            echo "  List the lib dependencies of file or files under directory"
+            echo "  If file or directory is not specified, '.' will be used."
+            exit 0
+            ;;
+        ?)
+            TARGET=${!OPTIND}
+            shift
+            ;;
+        *)
+            echo "unknown options arg${OPTIND} ${OPTARG}"
+            exit 1
+            ;;
+    esac
 done
 
 ldd_real_path()
@@ -19,15 +34,10 @@ ldd_real_path()
         sed 's/\s//'
 }
 
-TARGET=.
-if [[ $# -ge 1 ]]; then
-    TARGET=$1
-fi
-
 if [[ -d ${TARGET} ]]; then
-    for file in $(find .); do
-        ldd_real_path ${file}
+    for FILE in $(find .); do
+        ldd_real_path ${FILE}
     done
 elif [[ -f ${TARGET} ]]; then
-    ldd_real_path $1
+    ldd_real_path ${TARGET}
 fi
