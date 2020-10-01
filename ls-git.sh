@@ -5,6 +5,7 @@ if [[ $? -ne 0 ]]; then
     exit $?
 fi
 echo ${FILES_IN_GIT} | \
+    tr " " "\n" | \
     sed s,/.*,, | \
     uniq | \
     xargs ls -d --color=auto $*
