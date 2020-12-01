@@ -15,6 +15,7 @@ EXCLUDE_BASIC=(
     --exclude="*.xml"
     --exclude="*.css" 
     --exclude-dir="expm"
+    --exclude-dir=".git"
 )
 EXCLUDE_CODE=(
     --exclude="*.py")

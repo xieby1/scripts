@@ -47,6 +47,7 @@ grep "todo" ${GREP_OPTIONS[@]} \
 cd ~/Documents/Hobbies
 head_line Hobbies
 grep "todo" ${GREP_OPTIONS[@]} \
+    --exclude="awesome-kernel.md" \
     | bat ${BAT_STYLE}
 find -iname "W.*" \
     | bat ${BAT_STYLE}

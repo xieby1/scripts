@@ -62,8 +62,10 @@ get_dependencies()
     fi
 }
 
+echo "ldd-grep from ${TARGET} to ${DEST_DIR}"
+
 if [[ -d ${TARGET} ]]; then
-    for FILE in $(find . -type f); do
+    for FILE in $(find ${TARGET} -type f); do
         get_dependencies ${FILE}
     done
 elif [[ -f ${TARGET} ]]; then
