@@ -4,8 +4,8 @@
 # This script is meant to find and list all todo/open entries in my notes
 # as much as possible.
 
-source ~/Documents/shell-scripts/_common.sh
-source ~/Documents/shell-scripts/_grep_common.sh
+source ~/Codes/MyRepos/scripts/_common.sh
+source ~/Codes/MyRepos/scripts/_grep_common.sh
 
 #### Local Variables ####
 TODO_OPTION=(-i -E -w)
