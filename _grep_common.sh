@@ -14,6 +14,7 @@ EXCLUDE_BASIC=(
     --exclude="*.drawio" 
     --exclude="*.xml"
     --exclude="*.css" 
+    --exclude="tags"
     --exclude-dir="expm"
     --exclude-dir=".git"
 )
