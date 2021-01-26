@@ -17,6 +17,7 @@
 * **pdbsf.sh**: get source files info from a .pdb file
 * **pdfbookmark.sh**: pdf bookmark import/export in form of .md
 * **rsync-git.sh**: rsync modified files in git
+* **pwrThr.sh**: toggle lenovo power threshold
 
 ---
 
